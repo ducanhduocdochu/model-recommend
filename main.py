@@ -5,8 +5,10 @@ import pandas as pd
 from tensorflow.keras.models import Model
 from tensorflow.keras.models import load_model
 from tensorflow.keras.optimizers import Adam
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 # Load the trained model
 model_path = os.path.join(os.path.dirname(__file__), 'collaborative_filtering_model.h5')
