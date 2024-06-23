@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import Model
@@ -8,13 +9,14 @@ from tensorflow.keras.optimizers import Adam
 app = Flask(__name__)
 
 # Load the trained model
-model = load_model('D:/Code/Hệ hỗ trợ quyết định nhóm 4/api/collaborative_filtering_model.h5', compile=False)
+model_path = os.path.join(os.path.dirname(__file__), 'collaborative_filtering_model.h5')
+model = load_model(model_path, compile=False)
 
 model.compile(optimizer=Adam(learning_rate=0.001), loss='mse', metrics=['accuracy'])
 
-products = pd.read_csv('D:/Code/Hệ hỗ trợ quyết định nhóm 4/api/ratings_Beauty.csv')
+# products = pd.read_csv('D:/Code/Hệ hỗ trợ quyết định nhóm 4/api/ratings_Beauty.csv')
 
-num_products = len(products['ProductId'].unique())
+num_products = 249274
 
 # Define a function to get the user embeddings
 def get_user_embedding(model, user_id):
